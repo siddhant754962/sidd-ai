@@ -1,0 +1,2156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Sidd AI | VideoMind</title>
+
+
+    <style>
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+
+        body {
+
+            font-family:
+                Inter,
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #080608;
+
+            color: #f5f5f5;
+
+            overflow: hidden;
+        }
+
+
+        button,
+        input {
+            font-family: inherit;
+        }
+
+
+        /* =====================================================
+           APP
+        ===================================================== */
+
+        .app {
+
+            width: 100%;
+
+            height: 100vh;
+
+            display: flex;
+
+            background: #080608;
+        }
+
+
+        /* =====================================================
+           SIDEBAR
+        ===================================================== */
+
+        .sidebar {
+
+            width: 235px;
+
+            height: 100vh;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            flex-direction: column;
+
+            padding: 18px;
+
+            background: #0d080c;
+
+            border-right:
+                1px solid #24151e;
+        }
+
+
+        /* =====================================================
+           BRAND
+        ===================================================== */
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin-bottom: 24px;
+        }
+
+
+        .brand-mark {
+
+            width: 32px;
+
+            height: 32px;
+
+            border-radius: 8px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: #160b12;
+
+            border:
+                1px solid #ff2d8d;
+
+            color: #ff2d8d;
+
+            font-size: 15px;
+
+            font-weight: 800;
+
+            box-shadow:
+                0 0 15px
+                rgba(255,45,141,0.15);
+        }
+
+
+        .brand-name {
+
+            font-size: 16px;
+
+            font-weight: 700;
+
+            color: #f5f5f5;
+        }
+
+
+        .brand-name span {
+
+            color: #ff2d8d;
+        }
+
+
+        /* =====================================================
+           NEW CHAT
+        ===================================================== */
+
+        .new-chat {
+
+            width: 100%;
+
+            padding: 10px 12px;
+
+            border-radius: 8px;
+
+            background: #120a0f;
+
+            border:
+                1px solid #321725;
+
+            color: #f1dce7;
+
+            cursor: pointer;
+
+            text-align: left;
+
+            font-size: 13px;
+
+            transition: 0.2s;
+        }
+
+
+        .new-chat:hover {
+
+            background: #1a0c14;
+
+            border-color: #ff2d8d;
+
+            color: #ffffff;
+        }
+
+
+        /* =====================================================
+           SIDEBAR TITLE
+        ===================================================== */
+
+        .sidebar-title {
+
+            margin-top: 27px;
+
+            margin-bottom: 9px;
+
+            color: #755467;
+
+            font-size: 10px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1.2px;
+        }
+
+
+        /* =====================================================
+           VIDEO CARD
+        ===================================================== */
+
+        .video-card {
+
+            display: none;
+
+            padding: 11px;
+
+            background: #11090e;
+
+            border:
+                1px solid #281722;
+
+            border-radius: 8px;
+        }
+
+
+        .video-card.active {
+
+            display: block;
+        }
+
+
+        .video-label {
+
+            margin-bottom: 6px;
+
+            color: #9a7185;
+
+            font-size: 11px;
+        }
+
+
+        .video-id {
+
+            color: #ff4da6;
+
+            font-family: monospace;
+
+            font-size: 11px;
+
+            line-height: 1.5;
+
+            word-break: break-all;
+        }
+
+
+        /* =====================================================
+           SIDEBAR FOOTER
+        ===================================================== */
+
+        .sidebar-footer {
+
+            margin-top: auto;
+
+            color: #543846;
+
+            font-size: 10px;
+
+            line-height: 1.8;
+        }
+
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
+
+        .main {
+
+            flex: 1;
+
+            min-width: 0;
+
+            height: 100vh;
+
+            display: flex;
+
+            flex-direction: column;
+
+            background: #080608;
+        }
+
+
+        /* =====================================================
+           TOP BAR
+        ===================================================== */
+
+        .topbar {
+
+            height: 54px;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 20px;
+
+            background: #0d080c;
+
+            border-bottom:
+                1px solid #24151e;
+        }
+
+
+        .top-title {
+
+            color: #e8dce2;
+
+            font-size: 13px;
+
+            font-weight: 600;
+        }
+
+
+        .top-status {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            color: #77596a;
+
+            font-size: 11px;
+        }
+
+
+        .status-dot {
+
+            width: 6px;
+
+            height: 6px;
+
+            border-radius: 50%;
+
+            background: #ff2d8d;
+
+            box-shadow:
+                0 0 9px
+                rgba(255,45,141,0.8);
+        }
+
+
+        /* =====================================================
+           CHAT AREA
+        ===================================================== */
+
+        .chat-area {
+
+            flex: 1;
+
+            overflow-y: auto;
+
+            padding:
+                35px
+                20px
+                185px;
+        }
+
+
+        .chat {
+
+            width: 100%;
+
+            max-width: 780px;
+
+            margin: auto;
+        }
+
+
+        /* =====================================================
+           WELCOME
+        ===================================================== */
+
+        .welcome {
+
+            margin-top: 11vh;
+
+            text-align: center;
+        }
+
+
+        .welcome-mark {
+
+            width: 54px;
+
+            height: 54px;
+
+            margin: auto;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background: #120a0f;
+
+            border:
+                1px solid #ff2d8d;
+
+            color: #ff2d8d;
+
+            font-size: 20px;
+
+            font-weight: 800;
+
+            box-shadow:
+                0 0 25px
+                rgba(255,45,141,0.12);
+        }
+
+
+        .welcome h1 {
+
+            margin-top: 17px;
+
+            color: #f7edf2;
+
+            font-size: 26px;
+
+            font-weight: 600;
+        }
+
+
+        .welcome p {
+
+            margin-top: 9px;
+
+            color: #76596a;
+
+            font-size: 13px;
+        }
+
+
+        /* =====================================================
+           MESSAGE
+        ===================================================== */
+
+        .message {
+
+            display: flex;
+
+            gap: 13px;
+
+            margin-bottom: 29px;
+        }
+
+
+        .avatar {
+
+            width: 29px;
+
+            height: 29px;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 8px;
+
+            font-size: 10px;
+
+            font-weight: 700;
+        }
+
+
+        .sidd-avatar {
+
+            background: #160b12;
+
+            border:
+                1px solid #ff2d8d;
+
+            color: #ff4da6;
+        }
+
+
+        .user-avatar {
+
+            background: #21131b;
+
+            color: #e5b8cd;
+
+            border:
+                1px solid #34202b;
+        }
+
+
+        .message-content {
+
+            flex: 1;
+
+            min-width: 0;
+        }
+
+
+        .message-name {
+
+            margin-bottom: 6px;
+
+            color: #cdb8c3;
+
+            font-size: 12px;
+
+            font-weight: 600;
+        }
+
+
+        .message-text {
+
+            color: #d8cbd2;
+
+            font-size: 14px;
+
+            line-height: 1.75;
+
+            white-space: pre-wrap;
+
+            word-break: break-word;
+        }
+
+
+        /* =====================================================
+           SOURCES
+        ===================================================== */
+
+        .sources {
+
+            margin-top: 15px;
+        }
+
+
+        .sources-title {
+
+            margin-bottom: 8px;
+
+            color: #76596a;
+
+            font-size: 11px;
+        }
+
+
+        .source {
+
+            display: block;
+
+            padding: 10px 12px;
+
+            margin-bottom: 7px;
+
+            background: #0d080c;
+
+            border:
+                1px solid #281722;
+
+            border-radius: 7px;
+
+            text-decoration: none;
+
+            transition: 0.2s;
+        }
+
+
+        .source:hover {
+
+            border-color: #ff2d8d;
+
+            background: #11090e;
+        }
+
+
+        .source-time {
+
+            margin-bottom: 5px;
+
+            color: #ff4da6;
+
+            font-family: monospace;
+
+            font-size: 11px;
+        }
+
+
+        .source-text {
+
+            color: #795f6d;
+
+            font-size: 11px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =====================================================
+           VIDEO URL BAR
+        ===================================================== */
+
+        .video-bar {
+
+            position: fixed;
+
+            left: 235px;
+
+            right: 0;
+
+            bottom: 76px;
+
+            padding:
+                8px
+                20px;
+
+            background:
+                linear-gradient(
+                    transparent,
+                    #080608 35%
+                );
+
+            z-index: 10;
+        }
+
+
+        .video-input {
+
+            max-width: 780px;
+
+            margin: auto;
+
+            display: flex;
+
+            gap: 7px;
+
+            padding: 5px;
+
+            background: #0d080c;
+
+            border:
+                1px solid #321725;
+
+            border-radius: 8px;
+        }
+
+
+        .video-input:focus-within {
+
+            border-color: #ff2d8d;
+        }
+
+
+        .video-input input {
+
+            flex: 1;
+
+            min-width: 0;
+
+            padding: 8px;
+
+            background: transparent;
+
+            border: none;
+
+            outline: none;
+
+            color: #f2e8ed;
+
+            font-size: 12px;
+        }
+
+
+        .video-input input::placeholder {
+
+            color: #59404d;
+        }
+
+
+        .process-button {
+
+            padding:
+                8px
+                14px;
+
+            border: none;
+
+            border-radius: 6px;
+
+            background: #ff2d8d;
+
+            color: #ffffff;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .process-button:hover {
+
+            background: #ff4da6;
+
+            box-shadow:
+                0 0 15px
+                rgba(255,45,141,0.25);
+        }
+
+
+        .process-button:disabled {
+
+            opacity: 0.45;
+
+            cursor: not-allowed;
+
+            box-shadow: none;
+        }
+
+
+        /* =====================================================
+           CHAT INPUT
+        ===================================================== */
+
+        .input-bar {
+
+            position: fixed;
+
+            left: 235px;
+
+            right: 0;
+
+            bottom: 0;
+
+            padding:
+                7px
+                20px
+                15px;
+
+            background: #080608;
+
+            z-index: 11;
+        }
+
+
+        .chat-input {
+
+            max-width: 780px;
+
+            margin: auto;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            padding:
+                5px
+                5px
+                5px
+                13px;
+
+            background: #0d080c;
+
+            border:
+                1px solid #3a1b2b;
+
+            border-radius: 8px;
+
+            transition: 0.2s;
+        }
+
+
+        .chat-input:focus-within {
+
+            border-color: #ff2d8d;
+
+            box-shadow:
+                0 0 15px
+                rgba(255,45,141,0.07);
+        }
+
+
+        .chat-input input {
+
+            flex: 1;
+
+            min-width: 0;
+
+            padding: 8px 0;
+
+            background: transparent;
+
+            border: none;
+
+            outline: none;
+
+            color: #f2e8ed;
+
+            font-size: 13px;
+        }
+
+
+        .chat-input input::placeholder {
+
+            color: #59404d;
+        }
+
+
+        .send-button {
+
+            width: 33px;
+
+            height: 33px;
+
+            border: none;
+
+            border-radius: 6px;
+
+            background: #21131b;
+
+            color: #ff4da6;
+
+            cursor: pointer;
+
+            font-size: 17px;
+
+            transition: 0.2s;
+        }
+
+
+        .send-button:hover {
+
+            background: #ff2d8d;
+
+            color: #ffffff;
+        }
+
+
+        .send-button:disabled {
+
+            opacity: 0.35;
+
+            cursor: not-allowed;
+        }
+
+
+        /* =====================================================
+           STATUS
+        ===================================================== */
+
+        .status {
+
+            position: fixed;
+
+            top: 70px;
+
+            right: 18px;
+
+            display: none;
+
+            max-width: 330px;
+
+            padding:
+                10px
+                13px;
+
+            border-radius: 7px;
+
+            background: #120a0f;
+
+            border:
+                1px solid #3a1b2b;
+
+            font-size: 11px;
+
+            z-index: 100;
+        }
+
+
+        .status.show {
+
+            display: block;
+        }
+
+
+        .status.loading {
+
+            color: #ff4da6;
+
+            border-color: #6b1741;
+        }
+
+
+        .status.success {
+
+            color: #ff70b5;
+
+            border-color: #6b1741;
+        }
+
+
+        .status.error {
+
+            color: #ff6b81;
+
+            border-color: #7f1d35;
+        }
+
+
+        /* =====================================================
+           SCROLLBAR
+        ===================================================== */
+
+        ::-webkit-scrollbar {
+
+            width: 5px;
+        }
+
+
+        ::-webkit-scrollbar-track {
+
+            background: #080608;
+        }
+
+
+        ::-webkit-scrollbar-thumb {
+
+            background: #321725;
+
+            border-radius: 10px;
+        }
+
+
+        ::-webkit-scrollbar-thumb:hover {
+
+            background: #ff2d8d;
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 700px) {
+
+            .sidebar {
+
+                display: none;
+            }
+
+
+            .video-bar,
+            .input-bar {
+
+                left: 0;
+            }
+
+
+            .topbar {
+
+                padding:
+                    0
+                    15px;
+            }
+
+
+            .top-status {
+
+                display: none;
+            }
+
+
+            .chat-area {
+
+                padding:
+                    25px
+                    15px
+                    185px;
+            }
+
+
+            .video-bar {
+
+                padding:
+                    8px
+                    10px;
+            }
+
+
+            .input-bar {
+
+                padding:
+                    7px
+                    10px
+                    13px;
+            }
+
+
+            .video-input {
+
+                flex-direction: column;
+            }
+
+
+            .process-button {
+
+                width: 100%;
+            }
+
+
+            .welcome h1 {
+
+                font-size: 23px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+    <!-- =================================================
+         SIDEBAR
+    ================================================== -->
+
+    <aside class="sidebar">
+
+
+        <div class="brand">
+
+            <div class="brand-mark">
+                S
+            </div>
+
+            <div class="brand-name">
+                Sidd <span>AI</span>
+            </div>
+
+        </div>
+
+
+        <button
+            class="new-chat"
+            id="newChatButton"
+        >
+            + New Chat
+        </button>
+
+
+        <div class="sidebar-title">
+            Current Video
+        </div>
+
+
+        <div
+            class="video-card"
+            id="videoCard"
+        >
+
+            <div class="video-label">
+                Indexed video
+            </div>
+
+            <div
+                class="video-id"
+                id="videoIdDisplay"
+            ></div>
+
+        </div>
+
+
+        <div class="sidebar-footer">
+
+            Sidd AI<br>
+
+            VideoMind<br>
+
+            RAG + Hugging Face
+
+        </div>
+
+
+    </aside>
+
+
+    <!-- =================================================
+         MAIN
+    ================================================== -->
+
+    <main class="main">
+
+
+        <!-- TOP BAR -->
+
+        <header class="topbar">
+
+            <div class="top-title">
+                Sidd
+            </div>
+
+
+            <div class="top-status">
+
+                <span class="status-dot"></span>
+
+                API Connected
+
+            </div>
+
+        </header>
+
+
+        <!-- CHAT AREA -->
+
+        <div
+            class="chat-area"
+            id="chatArea"
+        >
+
+            <div
+                class="chat"
+                id="chat"
+            >
+
+
+                <div
+                    class="welcome"
+                    id="welcome"
+                >
+
+                    <div class="welcome-mark">
+                        S
+                    </div>
+
+
+                    <h1>
+                        Ask Sidd
+                    </h1>
+
+
+                    <p>
+                        Understand your YouTube videos with AI.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- VIDEO INPUT -->
+
+        <div class="video-bar">
+
+            <div class="video-input">
+
+                <input
+                    id="youtubeUrl"
+                    type="text"
+                    placeholder="Paste YouTube URL..."
+                    autocomplete="off"
+                >
+
+
+                <button
+                    class="process-button"
+                    id="processButton"
+                >
+                    Process
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- CHAT INPUT -->
+
+        <div class="input-bar">
+
+            <div class="chat-input">
+
+                <input
+                    id="question"
+                    type="text"
+                    placeholder="Ask Sidd about the video..."
+                    autocomplete="off"
+                >
+
+
+                <button
+                    class="send-button"
+                    id="sendButton"
+                >
+                    ↑
+                </button>
+
+            </div>
+
+        </div>
+
+
+    </main>
+
+</div>
+
+
+<!-- STATUS -->
+
+<div
+    class="status"
+    id="status"
+></div>
+
+
+<script>
+
+"use strict";
+
+
+/* =====================================================
+   STATE
+===================================================== */
+
+let currentVideoId = null;
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const youtubeUrl =
+    document.getElementById("youtubeUrl");
+
+const processButton =
+    document.getElementById("processButton");
+
+const question =
+    document.getElementById("question");
+
+const sendButton =
+    document.getElementById("sendButton");
+
+const chat =
+    document.getElementById("chat");
+
+const chatArea =
+    document.getElementById("chatArea");
+
+const status =
+    document.getElementById("status");
+
+const videoCard =
+    document.getElementById("videoCard");
+
+const videoIdDisplay =
+    document.getElementById("videoIdDisplay");
+
+const newChatButton =
+    document.getElementById("newChatButton");
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+function showStatus(message, type) {
+
+    status.textContent =
+        message;
+
+    status.className =
+        "status show " + type;
+
+
+    clearTimeout(
+        window.statusTimer
+    );
+
+
+    window.statusTimer =
+        setTimeout(
+            function () {
+
+                status.className =
+                    "status";
+
+            },
+            5000
+        );
+}
+
+
+/* =====================================================
+   SCROLL
+===================================================== */
+
+function scrollBottom() {
+
+    setTimeout(
+        function () {
+
+            chatArea.scrollTo({
+
+                top:
+                    chatArea.scrollHeight,
+
+                behavior:
+                    "smooth"
+
+            });
+
+        },
+        50
+    );
+}
+
+
+/* =====================================================
+   REMOVE WELCOME
+===================================================== */
+
+function removeWelcome() {
+
+    const element =
+        document.getElementById(
+            "welcome"
+        );
+
+
+    if (element) {
+
+        element.remove();
+    }
+}
+
+
+/* =====================================================
+   USER MESSAGE
+===================================================== */
+
+function addUserMessage(text) {
+
+    removeWelcome();
+
+
+    const message =
+        document.createElement(
+            "div"
+        );
+
+    message.className =
+        "message";
+
+
+    const avatar =
+        document.createElement(
+            "div"
+        );
+
+    avatar.className =
+        "avatar user-avatar";
+
+    avatar.textContent =
+        "You";
+
+
+    const content =
+        document.createElement(
+            "div"
+        );
+
+    content.className =
+        "message-content";
+
+
+    const name =
+        document.createElement(
+            "div"
+        );
+
+    name.className =
+        "message-name";
+
+    name.textContent =
+        "You";
+
+
+    const textElement =
+        document.createElement(
+            "div"
+        );
+
+    textElement.className =
+        "message-text";
+
+    textElement.textContent =
+        text;
+
+
+    content.appendChild(name);
+
+    content.appendChild(
+        textElement
+    );
+
+
+    message.appendChild(avatar);
+
+    message.appendChild(content);
+
+
+    chat.appendChild(message);
+
+
+    scrollBottom();
+}
+
+
+/* =====================================================
+   SIDD MESSAGE
+===================================================== */
+
+function addSiddMessage(
+    text,
+    sources = []
+) {
+
+    removeWelcome();
+
+
+    const message =
+        document.createElement(
+            "div"
+        );
+
+    message.className =
+        "message";
+
+
+    const avatar =
+        document.createElement(
+            "div"
+        );
+
+    avatar.className =
+        "avatar sidd-avatar";
+
+    avatar.textContent =
+        "S";
+
+
+    const content =
+        document.createElement(
+            "div"
+        );
+
+    content.className =
+        "message-content";
+
+
+    const name =
+        document.createElement(
+            "div"
+        );
+
+    name.className =
+        "message-name";
+
+    name.textContent =
+        "Sidd";
+
+
+    const textElement =
+        document.createElement(
+            "div"
+        );
+
+    textElement.className =
+        "message-text";
+
+    textElement.textContent =
+        text;
+
+
+    content.appendChild(name);
+
+    content.appendChild(
+        textElement
+    );
+
+
+    /* SOURCES */
+
+    if (
+        Array.isArray(sources)
+        &&
+        sources.length > 0
+    ) {
+
+        const sourcesBox =
+            document.createElement(
+                "div"
+            );
+
+        sourcesBox.className =
+            "sources";
+
+
+        const title =
+            document.createElement(
+                "div"
+            );
+
+        title.className =
+            "sources-title";
+
+        title.textContent =
+            "Video sources";
+
+
+        sourcesBox.appendChild(title);
+
+
+        sources.forEach(
+            function (source, index) {
+
+                const link =
+                    document.createElement(
+                        "a"
+                    );
+
+                link.className =
+                    "source";
+
+
+                link.href =
+                    source.url || "#";
+
+
+                link.target =
+                    "_blank";
+
+
+                link.rel =
+                    "noopener noreferrer";
+
+
+                const time =
+                    document.createElement(
+                        "div"
+                    );
+
+                time.className =
+                    "source-time";
+
+
+                time.textContent =
+                    "Source " +
+                    (index + 1) +
+                    "  " +
+                    formatTime(
+                        source.start_time
+                    ) +
+                    " → " +
+                    formatTime(
+                        source.end_time
+                    );
+
+
+                const sourceText =
+                    document.createElement(
+                        "div"
+                    );
+
+                sourceText.className =
+                    "source-text";
+
+
+                sourceText.textContent =
+                    source.text || "";
+
+
+                link.appendChild(time);
+
+                link.appendChild(
+                    sourceText
+                );
+
+
+                sourcesBox.appendChild(
+                    link
+                );
+
+            }
+        );
+
+
+        content.appendChild(
+            sourcesBox
+        );
+    }
+
+
+    message.appendChild(
+        avatar
+    );
+
+
+    message.appendChild(
+        content
+    );
+
+
+    chat.appendChild(
+        message
+    );
+
+
+    scrollBottom();
+}
+
+
+/* =====================================================
+   PROCESS VIDEO
+===================================================== */
+
+async function processVideo() {
+
+    const url =
+        youtubeUrl.value.trim();
+
+
+    if (!url) {
+
+        showStatus(
+            "Paste a YouTube URL first.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    processButton.disabled =
+        true;
+
+
+    processButton.textContent =
+        "Processing...";
+
+
+    showStatus(
+        "Reading YouTube transcript...",
+        "loading"
+    );
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/ingest",
+                {
+
+                    method:
+                        "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json"
+
+                    },
+
+                    body:
+                        JSON.stringify({
+                            url: url
+                        })
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.detail ||
+                "Video processing failed."
+            );
+        }
+
+
+        currentVideoId =
+            data.video_id;
+
+
+        videoIdDisplay.textContent =
+            currentVideoId;
+
+
+        videoCard.classList.add(
+            "active"
+        );
+
+
+        chat.innerHTML =
+            "";
+
+
+        if (
+            data.already_exists
+        ) {
+
+            addSiddMessage(
+                "This video is already indexed.\n\nAsk me anything about it."
+            );
+
+        } else {
+
+            addSiddMessage(
+                "Video processed successfully.\n\nAsk me anything about it."
+            );
+
+        }
+
+
+        showStatus(
+            "Video ready.",
+            "success"
+        );
+
+    }
+
+
+    catch (error) {
+
+        console.error(
+            "INGEST ERROR:",
+            error
+        );
+
+
+        showStatus(
+            error.message ||
+            "Something went wrong.",
+            "error"
+        );
+
+    }
+
+
+    finally {
+
+        processButton.disabled =
+            false;
+
+
+        processButton.textContent =
+            "Process";
+
+    }
+}
+
+
+/* =====================================================
+   ASK SIDD
+===================================================== */
+
+async function askSidd() {
+
+    const text =
+        question.value.trim();
+
+
+    if (!currentVideoId) {
+
+        showStatus(
+            "Process a video first.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    if (!text) {
+
+        return;
+    }
+
+
+    addUserMessage(text);
+
+
+    question.value =
+        "";
+
+
+    sendButton.disabled =
+        true;
+
+
+    /* THINKING */
+
+    const thinking =
+        document.createElement(
+            "div"
+        );
+
+    thinking.className =
+        "message";
+
+
+    thinking.id =
+        "thinking";
+
+
+    thinking.innerHTML = `
+
+        <div class="avatar sidd-avatar">
+            S
+        </div>
+
+        <div class="message-content">
+
+            <div class="message-name">
+                Sidd
+            </div>
+
+            <div class="message-text">
+                Thinking...
+            </div>
+
+        </div>
+
+    `;
+
+
+    chat.appendChild(
+        thinking
+    );
+
+
+    scrollBottom();
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/ask",
+                {
+
+                    method:
+                        "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json"
+
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            video_id:
+                                currentVideoId,
+
+                            question:
+                                text
+
+                        })
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.detail ||
+                "Could not get answer."
+            );
+        }
+
+
+        const thinkingElement =
+            document.getElementById(
+                "thinking"
+            );
+
+
+        if (thinkingElement) {
+
+            thinkingElement.remove();
+        }
+
+
+        addSiddMessage(
+            data.answer ||
+            "No answer was returned.",
+            data.sources || []
+        );
+
+    }
+
+
+    catch (error) {
+
+        console.error(
+            "ASK ERROR:",
+            error
+        );
+
+
+        const thinkingElement =
+            document.getElementById(
+                "thinking"
+            );
+
+
+        if (thinkingElement) {
+
+            thinkingElement.remove();
+        }
+
+
+        addSiddMessage(
+            "I couldn't answer that.\n\n" +
+            error.message
+        );
+
+    }
+
+
+    finally {
+
+        sendButton.disabled =
+            false;
+
+
+        question.focus();
+
+    }
+}
+
+
+/* =====================================================
+   NEW CHAT
+===================================================== */
+
+function newChat() {
+
+    currentVideoId =
+        null;
+
+
+    youtubeUrl.value =
+        "";
+
+
+    question.value =
+        "";
+
+
+    videoCard.classList.remove(
+        "active"
+    );
+
+
+    videoIdDisplay.textContent =
+        "";
+
+
+    chat.innerHTML = `
+
+        <div
+            class="welcome"
+            id="welcome"
+        >
+
+            <div class="welcome-mark">
+                S
+            </div>
+
+            <h1>
+                Ask Sidd
+            </h1>
+
+            <p>
+                Understand your YouTube videos with AI.
+            </p>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   FORMAT TIME
+===================================================== */
+
+function formatTime(seconds) {
+
+    const total =
+        Math.floor(
+            Number(seconds) || 0
+        );
+
+
+    const minutes =
+        Math.floor(
+            total / 60
+        );
+
+
+    const remaining =
+        total % 60;
+
+
+    return (
+
+        String(minutes)
+            .padStart(2, "0")
+
+        +
+
+        ":"
+
+        +
+
+        String(remaining)
+            .padStart(2, "0")
+
+    );
+}
+
+
+/* =====================================================
+   EVENTS
+===================================================== */
+
+processButton.addEventListener(
+    "click",
+    processVideo
+);
+
+
+sendButton.addEventListener(
+    "click",
+    askSidd
+);
+
+
+newChatButton.addEventListener(
+    "click",
+    newChat
+);
+
+
+youtubeUrl.addEventListener(
+    "keydown",
+    function (event) {
+
+        if (
+            event.key === "Enter"
+        ) {
+
+            event.preventDefault();
+
+            processVideo();
+
+        }
+
+    }
+);
+
+
+question.addEventListener(
+    "keydown",
+    function (event) {
+
+        if (
+            event.key === "Enter"
+        ) {
+
+            event.preventDefault();
+
+            askSidd();
+
+        }
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>
